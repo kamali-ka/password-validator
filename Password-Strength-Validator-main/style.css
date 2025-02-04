@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 25px;
+    background: linear-gradient(135deg, #f0f0f0, #d3e0ea);
+    color: #333;
+  }
+  
+  .container {
+    max-width: 500px;
+    width: 100%;
+    padding: 30px;
+    text-align: center;
+    background: linear-gradient(135deg, #ffffff, #e6f7ff);
+    border-radius: 15px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  .container h1 {
+    padding: 30px 0;
+    color: #1e81b0;
+  }
+  
+  .container h1 > span {
+    color: #ff6f61;
+    padding: 10px 0;
+  }
+  
+  .content {
+    text-align: left;
+    width: 95%;
+    margin: 20px 0 10px;
+    padding-left: 20px;
+  }
+  
+  .content .password-field {
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  #password {
+    width: 95%;
+    height: 50px;
+    padding: 0 10px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: 2px solid #b0c4de;
+    outline: none;
+    transition: border-color 0.3s ease;
+    background-color: #f9f9f9;
+  }
+  
+  #password:focus {
+    border-color: #1e81b0;
+  }
+  
+  #togglePassword {
+    position: absolute;
+    right: 48px;
+    top: 140px;
+    cursor: pointer;
+    color: #1e81b0;
+  }
+  
+  .requirement-lists {
+    margin-top: 20px;
+  }
+  
+  .requirement-lists li {
+    list-style: none;
+    padding-top: 5px;
+    font-size: 1.1rem;
+    color: #555;
+  }
+  
+  .requirement-lists li.is-valid i {
+    color: #2d82b7;
+  }
+  
+  .requirement-lists li.is-valid span {
+    opacity: 0.6;
+  }
+  
+  .requirement-lists li span {
+    margin-left: 12px;
+  }
+  
+  @media (max-width: 768px) {
+    body {
+      padding: 15px;
+    }
+  
+    .container {
+      padding: 20px;
+    }
+  
+    #password {
+      width: 100%;
+      font-size: 16px;
+    }
+  
+    #togglePassword {
+      right: 35px;
+      top: 135px;
+    }
+  
+    .requirement-lists li {
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    #togglePassword {
+      opacity: 0;
+    }
+  
+    .container {
+      padding: 15px;
+      max-width: 100%;
+    }
+  
+    .content {
+      padding-left: 10px;
+    }
+  
+    #togglePassword {
+      top: 100px;
+    }
+  
+    #password {
+      font-size: 14px;
+    }
+  }
+  
