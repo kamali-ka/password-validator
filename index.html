@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Strength</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+
+    <script src="https://kit.fontawesome.com/c8104c9f52.js" crossorigin="anonymous"></script>
+
+</head>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    padding: 25px;
+    background-color: #07004D;
+    color: black;
+}
+
+.container {
+    max-width: 500px;
+    width: 100%;
+    padding: 25px;
+    text-align: center;
+    background-color: white;
+    border-radius: 7px;
+    position: relative;
+    box-shadow: 
+        0 0 10px rgba(0, 0, 0, 0.1),
+        0 0 20px rgba(0, 0, 0, 0.1),
+        0 0 40px rgba(0, 0, 0, 0.1);
+}
+
+.container h1 {
+    padding: 30px 0;
+}
+
+.container h1 > span {
+    color: #005bf7;
+    padding: 10px 0;
+}
+
+.content {
+    text-align: left;
+    width: 95%;
+    margin: 20px 0 10px;
+    padding-left: 20px;
+}
+
+.content .password-field {
+    width: 100%;
+    margin: 0 auto;
+}
+
+#password {
+    width: 95%;
+    height: 50px;
+    padding: 0 10px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 2px solid rgba(0, 0, 0, 0.229);
+    outline: none;
+    transition: border 0.3s ease; /* Smooth transition for border */
+}
+
+#password:focus {
+    border: 2px solid rgba(0, 0, 0, 1);
+}
+
+#togglePassword {
+    position: absolute;
+    right: 48px;
+    top: 140px;
+    cursor: pointer;
+}
+
+.requirement-lists {
+    margin-top: 20px;
+}
+
+.requirement-lists li {
+    list-style: none;
+    padding-top: 5px;
+    font-size: 1.2rem;
+}
+
+.requirement-lists li.is-valid i {
+    color: #2D82B7;
+}
+
+.requirement-lists li.is-valid span {
+    opacity: 0.5;
+}
+
+.requirement-lists li span {
+    margin-left: 12px;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    #password {
+        width: 100%; 
+        font-size: 18px;
+    }
+
+    #togglePassword {
+        right:35px;
+        top: 135px; 
+    }
+
+    .requirement-lists li {
+        font-size: 1rem; 
+    }
+}
+
+@media (max-width: 480px) {
+    #togglePassword {
+        opacity: 0;
+    }
+
+    .container {
+        padding: 15px;
+        max-width: 100%; 
+
+    }
+    .content {
+        padding-left: 10px;
+    }
+
+    #togglePassword {
+        top: 100px; 
+    }
+    #password {
+        font-size: 16px; 
+    }
+}
+
+</style>
+<body>
+    <div class="container">
+        <h1>Password <span>Strength</span> Validator</h1>
+        <div class="password-field">
+            <input type="password" placeholder="Enter your password" id="password" focus="true" maxlength="16" />
+            <i class="fas fa-eye" id="togglePassword"></i>
+        </div>
+
+        <div class="content">
+            <p>Password must contains</p>
+            <ul class="requirement-lists">
+                <li>
+                    <i class="fa-solid fa-circle"></i>
+                    <span>At least 8 characters length</span>
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-circle"></i>
+                    <span>At least 1 number (0...9)</span>
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-circle"></i>
+                    <span>At least 1 lowercase letter (a...z)</span>
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-circle"></i>
+                    <span>At least 1 special symbol (!...$)</span>
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-circle"></i>
+                    <span>At least 1 uppercase letter (A...Z)</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        const passwordInput = document.querySelector("#password");
+const eyeIcon = document.querySelector("#togglePassword");
+const requirementList = document.querySelectorAll(".requirement-lists li");
+
+const requirements = [
+    {regex: /.{8,}/, index: 0},   
+    {regex: /[0-9]/, index: 1},  
+    {regex: /[a-z]/, index: 2},    
+    {regex: /[^A-Za-z0-9]/, index: 3}, 
+    {regex: /[A-Z]/, index: 4},           
+];
+
+
+passwordInput.addEventListener("keyup", (e) => {
+    const passwordValue = e.target.value;
+    let passwordStrength = 0;
+
+    requirements.forEach(item => {
+        const isValid = item.regex.test(passwordValue);
+        const requirementItem = requirementList[item.index];
+        
+        if(isValid) {
+            requirementItem.firstElementChild.className = "fa-solid fa-check";  
+            requirementItem.classList.add("is-valid")
+            passwordStrength++;  
+
+            
+        } else {
+            requirementItem.firstElementChild.className = "fa-solid fa-circle"; 
+            requirementItem.classList.remove("is-valid");
+        }
+    });
+
+    if(passwordStrength<=2){
+        passwordInput.style.border = "2px solid #FF6E77";
+    }else if(passwordStrength===3){
+        passwordInput.style.border = "2px solid #F49F17";
+    }else if(passwordStrength===5){
+        passwordInput.style.border = "2px solid #06EBAE";
+    }
+});
+
+eyeIcon.addEventListener("click", () => {
+    
+    passwordInput.type = (passwordInput.type === "password") ? "text" : "password";
+
+    eyeIcon.className = `fa-solid fa-eye${passwordInput.type === "password" ? "" : "-slash"}`;
+});
+
+    </script>
+</body>
+
+</html>
